@@ -1,12 +1,21 @@
-// util function that computes the fibonacci numbers
 module.exports = function fibonacci(n) {
-  if (n < 0) {
-    return -1;
-  } else if (n == 0) {
+  if (typeof n !== "number" || n < 0 || !Number.isInteger(n)) {
+    throw new Error("Input must be a non-negative integer.");
+  }
+
+  if (n === 0) {
     return 0;
-  } else if (n == 1) {
+  } else if (n === 1) {
     return 1;
   }
 
-  return fibonacci(n - 1) + fibonacci(n - 2);
+  let a = 0, b = 1;
+
+  for (let i = 2; i <= n; i++) {
+    const next = a + b;
+    a = b;
+    b = next;
+  }
+
+  return b;
 };
